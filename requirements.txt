@@ -1,0 +1,4 @@
+azure-cognitiveservices-speech
+gtts pydub srt
+matplotlib
+langdetect
