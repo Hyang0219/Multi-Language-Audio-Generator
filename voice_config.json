@@ -1,0 +1,16 @@
+{
+    "default_voice": {
+        "en": "en-US-AriaNeural",
+        "es": "es-ES-ArnauNeural",
+        "zh-cn": "zh-CN-YunjieNeural",
+        "zh-tw": "zh-TW-HsiaoChenNeural",
+        "fr": "fr-FR-DeniseNeural",
+        "de": "de-DE-KatjaNeural",
+        "it": "it-IT-ElsaNeural",
+        "ja": "ja-JP-NanamiNeural",
+        "ko": "ko-KR-SunHiNeural",
+        "pt": "pt-BR-FranciscaNeural",
+        "ru": "ru-RU-DariyaNeural",
+        "hi": "hi-IN-MadhurNeural"
+    }
+}
