@@ -18,7 +18,8 @@ You will need a pre-prepared subtitle SRT file of the chosen language
   * Chart showing speed factors that provides capability of fine-tuning the srt file to move texts around (please do not change timings!) to reduce the speed factor under rare cases with super fast playback speed
 
 ## Instructions
-pip install gtts pydub srt
-pip install azure-cognitiveservices-speech
-pip install langdetect
-pip install matplotlib
+1. Install all the requirements by running below codes in Google Colab, one by one
+    1. pip install gtts pydub srt
+    2. pip install azure-cognitiveservices-speech
+    3. pip install langdetect
+    4. pip install matplotlib
