@@ -19,7 +19,7 @@ You will need a pre-prepared subtitle SRT file of the chosen language
 
 ## Instructions
 1. Install all the requirements by running below codes in Google Colab, one by one
-    1. pip install gtts pydub srt
-    2. pip install azure-cognitiveservices-speech
-    3. pip install langdetect
-    4. pip install matplotlib
+    1. `pip install gtts pydub srt`
+    2. `pip install azure-cognitiveservices-speech`
+    3. `pip install langdetect`
+    4. `pip install matplotlib`
