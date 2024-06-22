@@ -18,3 +18,7 @@ You will need a pre-prepared subtitle SRT file of the chosen language
   * Chart showing speed factors that provides capability of fine-tuning the srt file to move texts around (please do not change timings!) to reduce the speed factor under rare cases with super fast playback speed
 
 ## Instructions
+pip install gtts pydub srt
+pip install azure-cognitiveservices-speech
+pip install langdetect
+pip install matplotlib
