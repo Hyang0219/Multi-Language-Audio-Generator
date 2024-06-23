@@ -32,7 +32,7 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
 ![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6ee89be0-9480-4bd3-88bc-bf9c0979c572)  
     and fill in the two fields in the notebook with your Azure service account information  
 ![Screenshot 2024-06-23 172456](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/25ad2e90-53ba-4a01-858f-5e52d97ac73f)  
-5. Upload the SRT file to your notebook  
+5. Upload the SRT file to your notebook or you can also choose to use the sample SRT files prepared in this repo in three different languages English, Chinese and Spanish.  
 ![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/36ac03a7-0c3f-4bb9-ae25-0d6bac6dc9bd)  
     and copy the file path  
     ![Screenshot 2024-06-23 172839](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/fcc188e1-eaf6-4f77-8a11-123adb8c531f)
