@@ -28,7 +28,7 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
 2. Locate your Microsoft Azure service account information
     1. speech_key
     2. service_region  
-![Screenshot 2024-06-23 170552](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/7ea83b89-8d57-424a-a382-ecf56aa0cd46)  
+![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6ee89be0-9480-4bd3-88bc-bf9c0979c572)  
 3. Copy the `main.py' file from the repo and paste it into your notebook and fill in the two fields below with your Azure service account information  
 ![Screenshot 2024-06-23 172456](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/25ad2e90-53ba-4a01-858f-5e52d97ac73f)
 4. Upload the SRT file to your notebook  
@@ -43,7 +43,7 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
 
 ## Additional Notes
 1. You can browse on Microsoft Azure Speech service to choose the voice you want and copy the code and replace it with the default voice in the configuration file. Please do not add multiple voices for one language.  
-![Screenshot 2024-06-23 170552](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/7ea83b89-8d57-424a-a382-ecf56aa0cd46)  
+![Screenshot 2024-06-23 220511](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/f11ab891-0c57-4d9a-af41-1974e7265892)    
 2. At the moment, I have only included a couple of languages in the configuration file `voice_config.json`, feel free to create your own configuration file and add your language so the programme can detect it.
 
 
