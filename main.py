@@ -142,7 +142,7 @@ for i, (start, end, content) in enumerate(segments):
 
 # Combine audio segments into one file
 combined_audio = combine_audio_segments(segments)
-combined_audio.export("Input wav file path here", format="wav")
+combined_audio.export("/content/text_to_speech_audio.wav", format="wav")
 
 # Plot speed factors and durations
 plot_speed_factors_with_durations(speed_factors, default_durations, target_durations, min_speed_factor)
