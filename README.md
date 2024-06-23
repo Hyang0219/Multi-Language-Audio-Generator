@@ -25,20 +25,21 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
     2. `pip install azure-cognitiveservices-speech`
     3. `pip install langdetect`
     4. `pip install matplotlib`
-2. Locate your Microsoft Azure service account information
+3. Copy the `main.py' file from the repo and paste it into your notebook  
+4. Locate your Microsoft Azure service account information
     1. speech_key
     2. service_region  
 ![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6ee89be0-9480-4bd3-88bc-bf9c0979c572)  
-3. Copy the `main.py' file from the repo and paste it into your notebook and fill in the two fields below with your Azure service account information  
-![Screenshot 2024-06-23 172456](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/25ad2e90-53ba-4a01-858f-5e52d97ac73f)
-4. Upload the SRT file to your notebook  
+    and fill in the two fields in the notebook with your Azure service account information  
+![Screenshot 2024-06-23 172456](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/25ad2e90-53ba-4a01-858f-5e52d97ac73f)  
+5. Upload the SRT file to your notebook  
 ![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/36ac03a7-0c3f-4bb9-ae25-0d6bac6dc9bd)  
     and copy the file path  
     ![Screenshot 2024-06-23 172839](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/fcc188e1-eaf6-4f77-8a11-123adb8c531f)
-5. Paste the path  
+6. Paste the path  
 ![Screenshot 2024-06-23 173232](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/5357641c-60ec-4352-9e72-0b304625dc40)
-6. Download `voice_config.json` from the repo and upload it to your notebook following the same method as the SRT file.
-7. Hit run and once it finishes, you will get a file `text_to_speech_audio.wav`. You can download it from the notebook and upload to either your editting software or Youtube Studio if you have the audio feather enabled in your account  
+7. Download `voice_config.json` from the repo and upload it to your notebook following the same method as the SRT file.
+8. Hit run and once it finishes, you will get a file `text_to_speech_audio.wav`. You can download it from the notebook and upload to either your editting software or Youtube Studio if you have the audio feather enabled in your account  
 ![Screenshot 2024-06-23 173841](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6734eee2-ad74-4323-a396-51ec3686a50e)
 
 ## Additional Notes
