@@ -86,27 +86,6 @@ def combine_audio_segments(segments):
         combined += silence + audio
     return combined
 
-# Step 4: Plot Speed Factors with Durations
-def plot_speed_factors_with_durations(speed_factors, default_durations, target_durations, min_speed_factor):
-    fig, ax1 = plt.subplots(figsize=(12, 8))
-
-    ax1.set_xlabel('Segment Index')
-    ax1.set_ylabel('Speed Factor', color='tab:blue')
-    ax1.bar(range(len(speed_factors)), speed_factors, color='blue', alpha=0.6, label='Speed Factor')
-    ax1.axhline(y=min_speed_factor, color='red', linestyle='--', label='Minimum Speed Factor')
-    ax1.tick_params(axis='y', labelcolor='tab:blue')
-
-    ax2 = ax1.twinx()
-    ax2.set_ylabel('Duration (s)', color='tab:green')
-    ax2.plot(range(len(default_durations)), default_durations, color='green', marker='o', linestyle='-', label='Default Duration')
-    ax2.plot(range(len(target_durations)), target_durations, color='orange', marker='o', linestyle='-', label='Target Duration')
-    ax2.tick_params(axis='y', labelcolor='tab:green')
-
-    fig.tight_layout()
-    fig.legend(loc='upper left', bbox_to_anchor=(0.1, 0.9))
-    plt.title('Speed Factors and Durations of Each Segment')
-    plt.show()
-
 # Main process
 srt_file = 'Input SRT file path here'
 segments = parse_srt(srt_file)
@@ -118,7 +97,6 @@ voice_name = voice_config["default_voice"].get(majority_language, "en-US-AriaNeu
 # Your Azure Speech API key and region
 speech_key = "Input Your Azure Speech Key Here"
 service_region = "Input Your Azure Service Region Here"
-min_speed_factor = 1  # Define minimum speed factor
 
 # Lists to store speed factors and durations for each segment
 speed_factors = []
@@ -152,10 +130,6 @@ for i, (start, end, content) in enumerate(segments):
 
     speed_factor = default_duration / target_duration
 
-    # Ensure speed factor is not below minimum
-    if speed_factor < min_speed_factor:
-        speed_factor = min_speed_factor
-
     prosody_rate = f"{speed_factor:.2f}"
     speed_factors.append(speed_factor)
 
@@ -183,6 +157,3 @@ for i, (start, end, content) in enumerate(segments):
 # Combine audio segments into one file
 combined_audio = combine_audio_segments(segments)
 combined_audio.export("/content/text_to_speech_audio.wav", format="wav")
-
-# Plot speed factors and durations
-plot_speed_factors_with_durations(speed_factors, default_durations, target_durations, min_speed_factor)
