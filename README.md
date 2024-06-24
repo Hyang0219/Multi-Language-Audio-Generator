@@ -1,5 +1,5 @@
 # Multi-Language-Audio-Generator
-A simple application to create synchronised audio of multi-languages from a subtitle file. It uses Microsoft Azure Speech service to dub the video with AI voices.
+A Python application to create synchronised audio of multi-languages from a subtitle file. It uses Microsoft Azure Speech service to dub the video with AI voices.
 This programme is generated with the help of ChatGPT 4.0.
 
 ## How It Works
