@@ -24,7 +24,6 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
     1. `pip install gtts pydub srt`
     2. `pip install azure-cognitiveservices-speech`
     3. `pip install langdetect`
-    4. `pip install matplotlib`
 3. Copy the `main.py' file from the repo and paste it into your notebook  
 4. Locate your Microsoft Azure service account information
     1. speech_key
