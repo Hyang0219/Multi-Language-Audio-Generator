@@ -30,13 +30,13 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
     2. service_region  
 ![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6ee89be0-9480-4bd3-88bc-bf9c0979c572)  
     and fill in the two fields in the notebook with your Azure service account information  
-![Screenshot 2024-06-23 172456](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/25ad2e90-53ba-4a01-858f-5e52d97ac73f)  
-5. Upload the SRT file to your notebook or you can also choose to use the sample SRT files prepared in this repo in three different languages English, Chinese and Spanish.  
+![Screenshot 2024-06-24 204521](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/2db4e7d5-45ac-4a87-ad3d-9138c9ce6f04)  
+5. Upload the SRT file to your notebook or you can also choose to use the sample SRT files prepared in this repo in three different languages English, Chinese and Spanish etc.  
 ![Screenshot 2024-06-23 172200](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/36ac03a7-0c3f-4bb9-ae25-0d6bac6dc9bd)  
     and copy the file path  
     ![Screenshot 2024-06-23 172839](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/fcc188e1-eaf6-4f77-8a11-123adb8c531f)
 6. Paste the path  
-![Screenshot 2024-06-23 173232](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/5357641c-60ec-4352-9e72-0b304625dc40)
+![Screenshot 2024-06-24 204428](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/22ebf8dd-7a10-4807-a578-83691007f669)
 7. Download `voice_config.json` from the repo and upload it to your notebook following the same method as the SRT file.
 8. Hit run and once it finishes, you will get a file `text_to_speech_audio.wav`. You can download it from the notebook and upload to either your editting software or Youtube Studio if you have the audio feather enabled in your account  
 ![Screenshot 2024-06-23 173841](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6734eee2-ad74-4323-a396-51ec3686a50e)
