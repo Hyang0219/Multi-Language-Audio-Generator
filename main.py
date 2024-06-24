@@ -2,12 +2,12 @@ import srt
 from datetime import timedelta
 from pydub import AudioSegment
 import azure.cognitiveservices.speech as speechsdk
-import matplotlib.pyplot as plt
 from langdetect import detect
 import os
 import json
 from collections import Counter
 import time
+import io
 
 # Load voice configuration from JSON file
 with open('voice_config.json', 'r') as f:
@@ -35,9 +35,8 @@ def detect_majority_language(segments):
     return 'unknown'
 
 # Step 2: Convert Text to Speech using Azure TTS with prosody rate adjustment
-def text_to_speech_azure(text, filename, speech_key, service_region, prosody_rate, voice_name):
+def text_to_speech_azure(text, speech_key, service_region, prosody_rate, voice_name):
     speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
-    audio_config = speechsdk.audio.AudioOutputConfig(filename=filename)
     
     # Setting the voice name from the config
     speech_config.speech_synthesis_voice_name = voice_name
@@ -53,12 +52,13 @@ def text_to_speech_azure(text, filename, speech_key, service_region, prosody_rat
     </speak>
     """
     
-    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
     result = synthesizer.speak_ssml_async(ssml_string).get()
 
     if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
         print(f"Speech synthesized for text [{text}]")
-        return True
+        audio_data = result.audio_data
+        return audio_data
     elif result.reason == speechsdk.ResultReason.Canceled:
         cancellation_details = result.cancellation_details
         print(f"Speech synthesis canceled: {cancellation_details.reason}")
@@ -66,28 +66,61 @@ def text_to_speech_azure(text, filename, speech_key, service_region, prosody_rat
             if cancellation_details.error_details:
                 print(f"Error details: {cancellation_details.error_details}")
                 print("Did you set the speech resource key and region values?")
-        return False
+        return None
 
-# Measure the duration of the audio file
-def get_audio_duration(filename):
-    try:
-        audio = AudioSegment.from_file(filename)
-        return len(audio) / 1000.0  # return duration in seconds
-    except Exception as e:
-        print(f"Could not decode audio file {filename}: {e}")
-        return 0
+# Measure the duration of the audio data
+def get_audio_duration(audio_data):
+    audio = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
+    return len(audio) / 1000.0  # return duration in seconds
 
 # Step 3: Combine Audio Segments
-def combine_audio_segments(segments):
+def combine_audio_segments(segments, speech_key, service_region, voice_name):
     combined = AudioSegment.silent(duration=0)
     for i, (start, end, content) in enumerate(segments):
-        audio = AudioSegment.from_file(f"segment_{i}.wav")
+        target_duration = (end - start).total_seconds()
+
+        # Generate audio with default prosody rate to measure duration
+        audio_data = text_to_speech_azure(content, speech_key, service_region, "1.0", voice_name)
+        
+        # If TTS failed, retry with a delay
+        retries = 3
+        while audio_data is None and retries > 0:
+            print(f"Retrying for segment {i}...")
+            time.sleep(5)  # Delay before retrying
+            audio_data = text_to_speech_azure(content, speech_key, service_region, "1.0", voice_name)
+            retries -= 1
+        
+        if audio_data is None:
+            # If all retries fail, use a silent segment with the target duration
+            audio_segment = AudioSegment.silent(duration=target_duration * 1000)
+        else:
+            default_duration = get_audio_duration(audio_data)
+            speed_factor = default_duration / target_duration
+            prosody_rate = f"{speed_factor:.2f}"
+
+            # Generate final audio with adjusted prosody rate
+            audio_data = text_to_speech_azure(content, speech_key, service_region, prosody_rate, voice_name)
+            
+            # Retry if needed
+            retries = 3
+            while audio_data is None and retries > 0:
+                print(f"Retrying for segment {i} with prosody rate {prosody_rate}...")
+                time.sleep(5)  # Delay before retrying
+                audio_data = text_to_speech_azure(content, speech_key, service_region, prosody_rate, voice_name)
+                retries -= 1
+            
+            if audio_data is None:
+                # If all retries fail, use a silent segment with the target duration
+                audio_segment = AudioSegment.silent(duration=target_duration * 1000)
+            else:
+                audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
+
         silence = AudioSegment.silent(duration=start.total_seconds() * 1000 - len(combined))
-        combined += silence + audio
+        combined += silence + audio_segment
     return combined
 
 # Main process
-srt_file = 'Input SRT file path here'
+srt_file = '/content/Spanish_150.srt'
 segments = parse_srt(srt_file)
 
 # Detect the majority language in the SRT file
@@ -98,62 +131,6 @@ voice_name = voice_config["default_voice"].get(majority_language, "en-US-AriaNeu
 speech_key = "Input Your Azure Speech Key Here"
 service_region = "Input Your Azure Service Region Here"
 
-# Lists to store speed factors and durations for each segment
-speed_factors = []
-default_durations = []
-target_durations = []
-
-# Generate audio files for each segment with adjusted prosody rate
-for i, (start, end, content) in enumerate(segments):
-    target_duration = (end - start).total_seconds()
-    target_durations.append(target_duration)
-
-    # Generate audio with default prosody rate to measure duration
-    temp_filename = f"temp_segment_{i}.wav"
-    success = text_to_speech_azure(content, temp_filename, speech_key, service_region, "1.0", voice_name)
-    
-    # If TTS failed, retry with a delay
-    retries = 3
-    while not success and retries > 0:
-        print(f"Retrying for segment {i}...")
-        time.sleep(5)  # Delay before retrying
-        success = text_to_speech_azure(content, temp_filename, speech_key, service_region, "1.0", voice_name)
-        retries -= 1
-    
-    if not success:
-        # If all retries fail, use a silent segment with the target duration
-        silent_audio = AudioSegment.silent(duration=target_duration * 1000)
-        silent_audio.export(temp_filename, format="wav")
-    
-    default_duration = get_audio_duration(temp_filename)
-    default_durations.append(default_duration)
-
-    speed_factor = default_duration / target_duration
-
-    prosody_rate = f"{speed_factor:.2f}"
-    speed_factors.append(speed_factor)
-
-    # Generate final audio with adjusted prosody rate
-    final_filename = f"segment_{i}.wav"
-    success = text_to_speech_azure(content, final_filename, speech_key, service_region, prosody_rate, voice_name)
-    
-    # Retry if needed
-    retries = 3
-    while not success and retries > 0:
-        print(f"Retrying for segment {i} with prosody rate {prosody_rate}...")
-        time.sleep(5)  # Delay before retrying
-        success = text_to_speech_azure(content, final_filename, speech_key, service_region, prosody_rate, voice_name)
-        retries -= 1
-    
-    if not success:
-        # If all retries fail, use a silent segment with the target duration
-        silent_audio = AudioSegment.silent(duration=target_duration * 1000)
-        silent_audio.export(final_filename, format="wav")
-
-    # Clean up temporary file
-    if os.path.exists(temp_filename):
-        os.remove(temp_filename)
-
 # Combine audio segments into one file
-combined_audio = combine_audio_segments(segments)
+combined_audio = combine_audio_segments(segments, speech_key, service_region, voice_name)
 combined_audio.export("/content/text_to_speech_audio.wav", format="wav")
