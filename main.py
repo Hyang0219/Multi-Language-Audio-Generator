@@ -120,7 +120,7 @@ def combine_audio_segments(segments, speech_key, service_region, voice_name):
     return combined
 
 # Main process
-srt_file = '/content/Spanish_150.srt'
+srt_file = 'Paste SRT File Path Here'
 segments = parse_srt(srt_file)
 
 # Detect the majority language in the SRT file
@@ -128,8 +128,8 @@ majority_language = detect_majority_language(segments)
 voice_name = voice_config["default_voice"].get(majority_language, "en-US-AriaNeural")  # Default to English if language is not recognized
 
 # Your Azure Speech API key and region
-speech_key = "Input Your Azure Speech Key Here"
-service_region = "Input Your Azure Service Region Here"
+speech_key = "Paste Your Azure Speech Key Here"
+service_region = "Paste Your Azure Service Region Here"
 
 # Combine audio segments into one file
 combined_audio = combine_audio_segments(segments, speech_key, service_region, voice_name)
