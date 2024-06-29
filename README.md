@@ -44,6 +44,7 @@ You will need a pre-prepared subtitle SRT file of the chosen language, you can
 ## Additional Notes
 1. You can browse on Microsoft Azure Speech service to choose the voice you want and copy the code and replace it with the default voice in the configuration file. Please do not add multiple voices for one language.  
 ![Screenshot 2024-06-23 220511](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/f11ab891-0c57-4d9a-af41-1974e7265892)    
-2. At the moment, I have only included a couple of languages in the configuration file `voice_config.json`, feel free to create your own configuration file and add your language so the programme can detect it.
-
+2. At the moment, I have only included a couple of languages in the configuration file `voice_config.json`, feel free to create your own configuration file and add your language so the programme can detect it.  
+For example, `"en": "en-US-BrianNeural"` where `"en-US-BrianNeural"` is your chosen AI voice name from Azure and `"en"` is your language which is just the first two letter from the AI voice name.  
+![jason](https://github.com/Hyang0219/Multi-Language-Audio-Generator/assets/54818876/6372a6bf-3d89-47aa-854e-36309a5eacc3)
 
