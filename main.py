@@ -43,7 +43,7 @@ def text_to_speech_azure(text, speech_key, service_region, prosody_rate, voice_n
     
     # Adjust prosody rate
     ssml_string = f"""
-    <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='http://www.w3.org/2001/mstts' xml:lang='{voice_name.split('-')[0]}'>
+    <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='http://www.w3.org/2001/mstts' xmlns:emo='http://www.w3.org/2009/10/emotionml' xml:lang='{voice_name.split('-')[0]}'>
         <voice name='{speech_config.speech_synthesis_voice_name}'>
             <prosody rate='{prosody_rate}'>
                 {text}
